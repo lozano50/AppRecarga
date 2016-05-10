@@ -2,7 +2,7 @@
     <string name="app_name">Recarga Electronica</string>
     <string name="recarga">RECARGA</string>
     <string name="informe">INFORME</string>
-    <String name="configuracion">ADMINISTRACION</String>
     <string name="usuario">USUARIO</string>
     <string name="configuracion">CONFIGURACION</string>
+    <string name="administracion">ADMINISTRACION</string>
 </resources>
