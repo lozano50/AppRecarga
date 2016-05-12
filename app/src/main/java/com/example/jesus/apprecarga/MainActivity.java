@@ -1,7 +1,10 @@
 package com.example.jesus.apprecarga;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -40,11 +43,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 t2.show();
                 break;
             case R.id.btnAdministrador:
+
+                Intent int1 = new Intent(MainActivity.this,Configuracion.class);
+                startActivity(int1);
+
                 break;
 
         }
 
     }
+
+
 
 
     public Button getBtnRecarga() {
