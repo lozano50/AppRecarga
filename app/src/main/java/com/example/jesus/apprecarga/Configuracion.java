@@ -147,19 +147,28 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 // Log.println(BIND_WAIVE_PRIORITY, et1.getText().toString(), et1.getText().toString());
 
                 //  getTextViewResult().setText(nombre);
+                if (nombre.length() > 0 ) {
 
-                if ( !nombre.equals(Constantes.PASS_CONFIG) ) {
-                    Toast.makeText(getApplicationContext(), " CLAVE INCORRECTA ", Toast.LENGTH_SHORT).show();
+
+                    if (!nombre.equals(Constantes.PASS_CONFIG)) {
+                        Toast.makeText(getApplicationContext(), " CLAVE INCORRECTA ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    Intent intentConfigTerminal = new Intent("com.example.jesus.apprecarga.ConfiguracionTerminal");
+                    //Bundle bolsa = new Bundle();
+                    //bolsa.putString("nombreKey",nombre);
+                    //intentUno.putExtras(bolsa);
+                    startActivity(intentConfigTerminal);
                     return;
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), " Ingrese el password ", Toast.LENGTH_SHORT).show();
+
+
                 }
 
-                //Intent intentUno = new Intent("com.example.jesus.apprecarga.Configuracion");
-                //Bundle bolsa = new Bundle();
-                //bolsa.putString("nombreKey",nombre);
-                //intentUno.putExtras(bolsa);
-                Toast.makeText(getApplicationContext(), " CLAVE CORRECTA ", Toast.LENGTH_SHORT).show();
-                //startActivity(intentUno);
-                return;
 
             }
         });

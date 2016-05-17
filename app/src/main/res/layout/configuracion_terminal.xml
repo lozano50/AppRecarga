@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTerminal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Id. Terminal"
+         />
+    <EditText
+        android:id="@+id/etTerminal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese ID. TERMINAL"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/tvIdComercio"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Canal y Entidad"
+        />
+    <EditText
+        android:id="@+id/etIdcomercio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese canal y entidad"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/tvIp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="IP"
+        />
+    <EditText
+        android:id="@+id/etIp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese la IP"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tvPuerto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Puerto"
+        />
+    <EditText
+        android:id="@+id/etPuerto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese Puerto"
+        android:inputType="number"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
