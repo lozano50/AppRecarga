@@ -102,6 +102,10 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 ValidarUsuario_();
                 break;
             case R.id.btnDonwloadConfig:
+
+                Intent intentDonwloadConfig = new Intent(Configuracion.this, DownloadConfig.class);
+                startActivity(intentDonwloadConfig);
+
                 break;
             case R.id.btnUsuario:
                 break;

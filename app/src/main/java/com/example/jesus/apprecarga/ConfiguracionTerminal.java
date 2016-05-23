@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by jesus on 14/05/16.
@@ -53,6 +54,7 @@ public class ConfiguracionTerminal extends AppCompatActivity implements View.OnC
 
             case R.id.btnOk:
                 guardarConfiguracion();
+                Toast.makeText(getApplicationContext(), " Registro guardado con exito  ", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnCancel:
                System.exit(1);

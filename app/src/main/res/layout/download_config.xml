@@ -13,4 +13,34 @@
         android:text="REALIZANDO DLC"/>
 
 
+    <TextView
+        android:id="@+id/tvTerminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/tvIdcomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+
+
+    <TextView
+        android:id="@+id/tvIp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/tvPuerto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+
+
 </LinearLayout>
