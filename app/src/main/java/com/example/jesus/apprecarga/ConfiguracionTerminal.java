@@ -1,6 +1,8 @@
 package com.example.jesus.apprecarga;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,6 +33,14 @@ public class ConfiguracionTerminal extends AppCompatActivity implements View.OnC
     btnOk = (Button)findViewById(R.id.btnOk);
     btnCancel = (Button)findViewById(R.id.btnCancel);
 
+    SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+    etTerminal.setText(prefs.getString("TERMINAL",""));
+    etIdcomercio.setText(prefs.getString("IDCOMERCIO",""));
+    etIp.setText(prefs.getString("IP",""));
+    etPuerto.setText(prefs.getString("PUERTO",""));
+
+
+
     btnOk.setOnClickListener(this);
     btnCancel.setOnClickListener(this);
 
@@ -42,6 +52,7 @@ public class ConfiguracionTerminal extends AppCompatActivity implements View.OnC
         switch (v.getId()){
 
             case R.id.btnOk:
+                guardarConfiguracion();
                 break;
             case R.id.btnCancel:
                System.exit(1);
@@ -51,4 +62,26 @@ public class ConfiguracionTerminal extends AppCompatActivity implements View.OnC
 
         }
     }
+
+
+    public void guardarConfiguracion(){
+
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor Editor = prefs.edit();
+
+        Editor.putString("TERMINAL",etTerminal.getText().toString());
+        Editor.putString("IDCOMERCIO",etIdcomercio.getText().toString());
+        Editor.putString("IP",etIp.getText().toString());
+        Editor.putString("PUERTO", etPuerto.getText().toString());
+
+        Editor.commit();
+
+    }
+
+    public void RecuperarConfiguracion(){
+
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+
+    }
+
 }
