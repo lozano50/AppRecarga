@@ -73,7 +73,6 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                     return;
                 }
 
-
                 Toast.makeText(getApplicationContext(), " CLAVE CORRECTA!!! ", Toast.LENGTH_SHORT).show();
                 return;
                // Intent intentUno = new Intent("com.example.jesus.apprecarga.Configuracion");
@@ -94,7 +93,6 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
     }*/
 
 
-
     @Override
     public void onClick(View v) {
 
@@ -109,20 +107,9 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnFormatear:
                 break;
-
-
         }
-
     }
 
-
-    public Button getPassword() {
-        return password;
-    }
-
-    public void setPassword(Button password) {
-        this.password = password;
-    }
 
     public void ValidarUsuario_() {
 
@@ -149,13 +136,12 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 //  getTextViewResult().setText(nombre);
                 if (nombre.length() > 0 ) {
 
-
                     if (!nombre.equals(Constantes.PASS_CONFIG)) {
                         Toast.makeText(getApplicationContext(), " CLAVE INCORRECTA ", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    Intent intentConfigTerminal = new Intent("com.example.jesus.apprecarga.ConfiguracionTerminal");
+                    Intent intentConfigTerminal = new Intent(Configuracion.this, ConfiguracionTerminal.class);
                     //Bundle bolsa = new Bundle();
                     //bolsa.putString("nombreKey",nombre);
                     //intentUno.putExtras(bolsa);
@@ -180,7 +166,13 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
     }
 
 
+    public Button getPassword() {
+        return password;
+    }
 
+    public void setPassword(Button password) {
+        this.password = password;
+    }
 
 
 }
