@@ -42,7 +42,6 @@ public class DownloadConfig extends AppCompatActivity {
         Ip = prefs.getString("IP","");
         Puerto = prefs.getString("PUERTO","");
 
-
         tvTerminal.setText(Terminal);
         tvIdcomer.setText(Idcomercio);
         tvIp.setText(Ip);
