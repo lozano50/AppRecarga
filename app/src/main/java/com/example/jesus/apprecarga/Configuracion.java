@@ -15,6 +15,14 @@ import android.widget.Toast;
 
 import com.example.jesus.apprecarga.utils.Constantes;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 /**
  * Created by jesus on 10/05/16.
  */
@@ -103,8 +111,11 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.btnDonwloadConfig:
 
-                Intent intentDonwloadConfig = new Intent(Configuracion.this, DownloadConfig.class);
-                startActivity(intentDonwloadConfig);
+                //Intent intentDonwloadConfig = new Intent(Configuracion.this, DownloadConfig.class);
+                //startActivity(intentDonwloadConfig);
+                Intent transactionTcp = new Intent(Configuracion.this, TransactionTCP.class);
+
+                startService(transactionTcp);
 
                 break;
             case R.id.btnUsuario:
@@ -166,6 +177,56 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
         //se crea y luego se muestra...
         miDialogo.create();
         miDialogo.show();
+
+    }
+
+    public static void ejecutaCliente() {
+
+        try {
+
+            Socket s = new Socket("181.143.155.250", 8088);
+
+
+            System.out.println("s.isConnected() :::::::::: " + s.isConnected());
+            //outgoing stream redirect to socket
+
+            OutputStream out = s.getOutputStream();
+
+
+
+            PrintWriter output = new PrintWriter(out);
+
+            output.println("Hello Android!");
+
+            BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+
+
+
+            //read line(s)
+
+            String st = input.readLine();
+
+            //Close connection
+
+            s.close();
+
+
+
+
+
+        } catch (UnknownHostException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+        } catch (IOException e) {
+
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+
+        }
 
     }
 

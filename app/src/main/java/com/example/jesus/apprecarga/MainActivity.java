@@ -1,6 +1,7 @@
 package com.example.jesus.apprecarga;
 
 import android.app.AlertDialog;
+import android.app.IntentService;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,14 +40,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 t.show();
                 break;
             case R.id.btnInforme:
-                Toast t2 = Toast.makeText(this,"NO HAY TRANSACCIONES REALIZADAS", Toast.LENGTH_LONG);
-                t2.show();
+
+                Intent intInfo = new Intent(MainActivity.this,ActInforme.class);
+                startActivity(intInfo);
+                this.finish();
+                //Toast t2 = Toast.makeText(this,"NO HAY TRANSACCIONES REALIZADAS", Toast.LENGTH_LONG);
+                //t2.show();
                 break;
             case R.id.btnAdministrador:
 
-                Intent int1 = new Intent(MainActivity.this,Configuracion.class);
-                startActivity(int1);
-
+                Intent intAdmin = new Intent(MainActivity.this,Configuracion.class);
+                startActivity(intAdmin);
+                this.finish();
                 break;
 
         }
