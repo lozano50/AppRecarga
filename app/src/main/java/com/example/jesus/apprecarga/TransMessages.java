@@ -101,7 +101,6 @@ public class TransMessages {
 
     /**
      *
-     * @param outputBuffer
      * @param stan
      * @param terminal_id
      * @param merchant_id
@@ -110,7 +109,7 @@ public class TransMessages {
      * @param DLC_Auto
      * @return
      */
-    public static ISOMensaje packMsgInit(byte outputBuffer[], String stan, String terminal_id, String merchant_id, String configVersion, String idEntidad, boolean DLC_Auto)
+    public static ISOMensaje packMsgInit(String stan, String terminal_id, String merchant_id, String configVersion, String idEntidad, boolean DLC_Auto)
     {
 
         ISOMensaje iso = new ISOMensaje();
@@ -205,7 +204,7 @@ public class TransMessages {
     }
 
 
-    public static ISOMensaje packMsgSaldo(byte outputBuffer[], String stan, String terminal_id, String merchant_id, String NumLote, String configVersion, String idEntidad)
+    public static ISOMensaje packMsgSaldo( String stan, String terminal_id, String idEntidad)
     {
         ISOMensaje iso = new ISOMensaje();
         iso.setEncabezado("6000010002");

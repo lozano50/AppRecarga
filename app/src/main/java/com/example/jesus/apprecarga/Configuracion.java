@@ -119,6 +119,11 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.btnUsuario:
+
+                Intent intenUsuario = new Intent(Configuracion.this, Usuario.class);
+                startActivity(intenUsuario);
+                this.finish();
+
                 break;
             case R.id.btnFormatear:
                 break;

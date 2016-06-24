@@ -5,55 +5,41 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvTerminal"
+        android:id="@+id/tvNombreUsuario"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Id. Terminal"
-        />
+        android:text="Nombre Usuario" />
     <EditText
-        android:id="@+id/etTerminal"
+        android:id="@+id/etNombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingrese ID. TERMINAL"
-        android:inputType="number"/>
-
-    <TextView
-        android:id="@+id/tvIdComercio"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Canal y Entidad"
-        />
-    <EditText
-        android:id="@+id/etIdcomercio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese canal y entidad"
-        android:inputType="number"/>
-
-    <TextView
-        android:id="@+id/tvIp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="IP"
-        />
-    <EditText
-        android:id="@+id/etIp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese la IP"
+        android:hint="Ingrese Nombre Usuario"
         android:inputType="text"/>
 
     <TextView
-        android:id="@+id/tvPuerto"
+        android:id="@+id/tvCodUsuario"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Puerto"
+        android:text="Codigo Usuario"
         />
     <EditText
-        android:id="@+id/etPuerto"
+        android:id="@+id/etCodUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingrese Puerto"
+        android:hint="Ingrese codigo de usuario"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/tvTipoUsuario"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Tipo Usuario"
+        />
+    <EditText
+        android:id="@+id/etTipoUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese Tipo usuario"
         android:inputType="number"/>
 
     <LinearLayout
@@ -63,13 +49,13 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btnOk"
+            android:id="@+id/btnInsertUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ok"/>
+            android:text="Insertar"/>
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnActUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/cancel"/>

@@ -52,21 +52,13 @@ public class TransactionTCP extends IntentService {
 
             if(socket.isConnected()){
 
-                //transactionInit();
                 transactionSaldo();
                 iso.borrarCampoISO(12);
                 iso.setCampoISO(12, "Hora de la transaccion", 3, new int[][]{new int[]{3, 1}}, ISOUtil.getTimeAsString());
 
-                /*outputBuffer = iso.getMensajeISOEnBytes();
-
-                OutputStream mensaje = new DataOutputStream(socket.getOutputStream());
-                mensaje.write(outputBuffer, 0, outputBuffer.length);
-                mensaje.flush();*/
                 consultaSaldo();
 
             }
-
-            //socket.close();
 
         } catch (Exception ex) {
 
@@ -93,13 +85,13 @@ public class TransactionTCP extends IntentService {
 
     private void transactionInit() {
 
-        iso = TransMessages.packMsgInit(outputBuffer, "000001", "90909090", "01", "90901A", "000010101101010", false);
+        iso = TransMessages.packMsgInit( "000001", "90909090", "01", "90901A", "000010101101010", false);
 
     }
 
     private void transactionSaldo() {
 
-        iso = TransMessages.packMsgSaldo(outputBuffer, "000001", "90909090", "01", "000001", "90901A", "000010101101010");
+        iso = TransMessages.packMsgSaldo( "000001", "90909090", "000010101101010");
 
     }
 
@@ -127,8 +119,9 @@ public class TransactionTCP extends IntentService {
                 byte[] data = new byte[3024];
                 int count = stream.read(data);
 
-                AppUtil.dumpMemory(data,87);
+                System.out.println("data.length :::::::::: " + count);
 
+                AppUtil.dumpMemory(data, count);
 
             }
 
