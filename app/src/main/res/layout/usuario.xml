@@ -58,9 +58,16 @@
             android:id="@+id/btnActUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"/>
+            android:text="motrar"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMsgUsuario"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="" />
 
 
 </LinearLayout>

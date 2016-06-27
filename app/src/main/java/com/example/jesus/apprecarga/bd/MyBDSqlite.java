@@ -9,12 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class MyBDSqlite extends SQLiteOpenHelper{
 
-    private static final String nameBD = "DbRecarga";
+    private static final String nameBD = "DbRecarga.db";
     private static final String tabla_Trama_resp_1 = "tablatramaresp1";
     private static final String tabla_Trama_resp_2 = "tablatramaresp2";
     private static final String tabla_Trama_resp_3 = "tablatramaresp3";
-    private static final String tabla_Usuario      = "usurios";
-    private static final String tabla_producto_aux     = "tabla_producto_aux";
+    private static final String tabla_Usuario      = "usuarios";
+    private static final String tabla_producto_aux = "tabla_producto_aux";
     private static final String tabla_producto     = "tabla_producto";
     private static final String tabla_registros    = "tabla_registros";
 
@@ -26,7 +26,7 @@ public class MyBDSqlite extends SQLiteOpenHelper{
     String sqlTramaResp2 = "CREATE TABLE "+ tabla_Trama_resp_2 +" (id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT, msg TEXT, encabezado_activo1 TEXT, encabezado_activo2 TEXT, encabezado_activo3 TEXT," +
             " encabezado_activo4 TEXT, encabezado_activo5 TEXT, pagina_activo1 TEXT, pagina_activo2 TEXT, pagina_activo3 TEXT, pagina_activo4 TEXT, pagina_activo5 TEXT, encabezado_saldo1 TEXT, encabezado_saldo2 TEXT, encabezado_saldo3 TEXT, pagina_saldo1 TEXT, pagina_saldo2 TEXT, pagina_saldo3 TEXT)";
 
-    String sqlTableOperadora = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT, mensaje TEXT, cant_producto INTEGER)";
+    String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT, mensaje TEXT, cant_producto INTEGER)";
 
     String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER)";
 
@@ -51,8 +51,7 @@ public class MyBDSqlite extends SQLiteOpenHelper{
 
         db.execSQL(sqlTramaResp1);
         db.execSQL(sqlTramaResp2);
-
-        db.execSQL(sqlTableOperadora);
+        db.execSQL(sqlTramaResp3);
         db.execSQL(sqlTableUsuario);
         db.execSQL(sqlTableProductoAux);
         db.execSQL(sqlTableProducto);
@@ -64,14 +63,14 @@ public class MyBDSqlite extends SQLiteOpenHelper{
 
         db.execSQL("DROP TABLE IF EXISTS " + tabla_Trama_resp_1);
         db.execSQL("DROP TABLE IF EXISTS " + tabla_Trama_resp_2);
-        db.execSQL("DROP TABLE IF EXISTS " + sqlTableOperadora);
-        db.execSQL("DROP TABLE IF EXISTS " + sqlTableUsuario);
-        db.execSQL("DROP TABLE IF EXISTS " + sqlTableProductoAux);
-        db.execSQL("DROP TABLE IF EXISTS " + sqlTableProducto);
+        db.execSQL("DROP TABLE IF EXISTS " + tabla_Trama_resp_3);
+        db.execSQL("DROP TABLE IF EXISTS " + tabla_Usuario);
+        db.execSQL("DROP TABLE IF EXISTS " + tabla_producto_aux);
+        db.execSQL("DROP TABLE IF EXISTS " + tabla_producto);
 
         db.execSQL(sqlTramaResp1);
         db.execSQL(sqlTramaResp2);
-        db.execSQL(sqlTableOperadora);
+        db.execSQL(sqlTramaResp3);
         db.execSQL(sqlTableUsuario);
         db.execSQL(sqlTableProductoAux);
         db.execSQL(sqlTableProducto);
