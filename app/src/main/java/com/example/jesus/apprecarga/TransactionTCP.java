@@ -2,6 +2,7 @@ package com.example.jesus.apprecarga;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.example.jesus.apprecarga.isolib.ISOMensaje;
 import com.example.jesus.apprecarga.utils.AppUtil;
@@ -29,8 +30,7 @@ public class TransactionTCP extends IntentService {
     OutputStream salida;
     BufferedReader entrada;
     Configuracion config;
-
-
+    int transaccionActual;
 
 
     public TransactionTCP(){
@@ -51,17 +51,36 @@ public class TransactionTCP extends IntentService {
             socket = new Socket("190.144.110.99" , 8088 );
 
             socket.setSoTimeout(10000);
-
+            String prueba = intent.getData().toString();
             System.out.println(":::::::::::::::::::: " + socket.isConnected());
-            System.out.println(":::::::::::::::::::: " + intent.getData());
+            String campos[] = prueba.split("\\|");
+            transaccionActual = Integer.parseInt(campos[0]);
+
 
             if(socket.isConnected()){
 
-                transactionSaldo();
+              switch(transaccionActual){
+                  case 1:
+                      hacerDlc();
+                      break;
+                  case 2:
+                      //otrofuncion1();
+                      break;
+                  case 3:
+                      //otrafuncion2();
+                      break;
+                  case 4:
+                      //otrafuncion3();
+                      break;
+                  case 5:
+                      //otrafuncion4();
+                      break;
+              }
+
+             /*   transactionSaldo();
                 iso.borrarCampoISO(12);
                 iso.setCampoISO(12, "Hora de la transaccion", 3, new int[][]{new int[]{3, 1}}, ISOUtil.getTimeAsString());
-
-                consultaSaldo();
+                consultaSaldo();*/
 
             }
 
@@ -103,8 +122,6 @@ public class TransactionTCP extends IntentService {
     public void consultaSaldo(){
 
         try{
-
-
 
             if(socket.isConnected()){
 
@@ -158,6 +175,61 @@ public class TransactionTCP extends IntentService {
 
 
 
+    public void hacerDlc() {
+
+        int i = 0;
+
+        try {
+
+            iso = TransMessages.packMsgInit("000001", "90909090", "01", "90901A", "000010101101010", false);
+
+            for (i = 0; i < 3; i++) {
+
+                iso.borrarCampoISO(12);
+                iso.setCampoISO(12, "Hora de la transaccion", 3, new int[][]{new int[]{3, 1}}, ISOUtil.getTimeAsString());
+
+                outputBuffer = iso.getMensajeISOEnBytes();
+
+                System.out.println("ENVIANDO PAQUETE DLC " + (i + 1) + "...");
+                OutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                mensaje.write(outputBuffer, 0, outputBuffer.length);
+                mensaje.flush();
+
+                System.out.println("RECIBIENDO PAQUETE DLC " + (i + 1) + "...");
+
+                do {
+                    InputStream stream = socket.getInputStream();
+                    byte[] data = new byte[3024];
+                    int count = stream.read(data);
+
+                    System.out.println("data.length :::::::::: " + count);
+
+                    AppUtil.dumpMemory(data, count);
+
+                    break;
+                }while (true);
+
+            }
+
+        } catch (Exception ex) {
+
+            System.out.println("Error al conectar cliente" + ex.toString());
+
+        } finally {
+
+            if (socket != null) {
+
+                try {
+
+                    socket.close();
+
+                } catch (Exception ex) {
+                    System.out.println("Error al cerrar el socket");
+                }
+
+            }
+        }
+    }
 
     /*
 public class Cliente extends IntentService {

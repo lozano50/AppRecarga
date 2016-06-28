@@ -188,56 +188,6 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
 
     }
 
-    public static void ejecutaCliente() {
-
-        try {
-
-            Socket s = new Socket("181.143.155.250", 8088);
-
-
-            System.out.println("s.isConnected() :::::::::: " + s.isConnected());
-            //outgoing stream redirect to socket
-
-            OutputStream out = s.getOutputStream();
-
-
-
-            PrintWriter output = new PrintWriter(out);
-
-            output.println("Hello Android!");
-
-            BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
-
-
-            //read line(s)
-
-            String st = input.readLine();
-
-            //Close connection
-
-            s.close();
-
-
-
-
-
-        } catch (UnknownHostException e) {
-
-            // TODO Auto-generated catch block
-
-            e.printStackTrace();
-
-        } catch (IOException e) {
-
-            // TODO Auto-generated catch block
-
-            e.printStackTrace();
-
-        }
-
-    }
-
 
     public Button getPassword() {
         return password;

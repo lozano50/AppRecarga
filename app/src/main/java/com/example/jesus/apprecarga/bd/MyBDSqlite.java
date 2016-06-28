@@ -28,7 +28,7 @@ public class MyBDSqlite extends SQLiteOpenHelper{
 
     String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT, mensaje TEXT, cant_producto INTEGER)";
 
-    String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER)";
+    String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER, pass INTEGER)";
 
     String sqlTableProductoAux = "CREATE TABLE "+ tabla_producto_aux +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, num_producto INTEGER, encabezado_recarga_1 TEXT, encabezado_recarga_2 TEXT, encabezado_recarga_3 TEXT, encabezado_recarga_4 TEXT, encabezado_recarga_5 TEXT, " +
                                  "pie_recarga_1 TEXT, pie_recarga_2 TEXT, pie_recarga_3 TEXT, pie_recarga_4 TEXT, pie_recarga_5 TEXT, cod_logo INTEGER, cod_prov INTEGER, nombre_operadora TEXT, tipo_protocolo INTEGER, prefijo_operadora INTEGER, largo_minimo INTEGER, largo_maximo INTEGER, modo_recarga TEXT, total_productos INTEGER )";
