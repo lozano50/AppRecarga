@@ -4,6 +4,7 @@ package com.example.jesus.apprecarga;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
     Button btnFormatear;
     private Button password;
     TextView et1;
+    private int tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +115,9 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
 
                 //Intent intentDonwloadConfig = new Intent(Configuracion.this, DownloadConfig.class);
                 //startActivity(intentDonwloadConfig);
+                setTipo(1);
                 Intent transactionTcp = new Intent(Configuracion.this, TransactionTCP.class);
-
+                transactionTcp.setData(Uri.parse("1|90909090|101010"));
                 startService(transactionTcp);
 
                 break;
@@ -154,7 +157,7 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
                 // Log.println(BIND_WAIVE_PRIORITY, et1.getText().toString(), et1.getText().toString());
 
                 //  getTextViewResult().setText(nombre);
-                if (nombre.length() > 0 ) {
+                if (nombre.length() > 0) {
 
                     if (!nombre.equals(Constantes.PASS_CONFIG)) {
                         Toast.makeText(getApplicationContext(), " CLAVE INCORRECTA ", Toast.LENGTH_SHORT).show();
@@ -242,6 +245,14 @@ public class Configuracion extends AppCompatActivity implements View.OnClickList
 
     public void setPassword(Button password) {
         this.password = password;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
 

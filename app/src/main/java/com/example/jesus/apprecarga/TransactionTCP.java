@@ -28,6 +28,10 @@ public class TransactionTCP extends IntentService {
     char[] inputBuffer = new char[3024];
     OutputStream salida;
     BufferedReader entrada;
+    Configuracion config;
+
+
+
 
     public TransactionTCP(){
         super("IntentServiceOperacion");
@@ -44,11 +48,12 @@ public class TransactionTCP extends IntentService {
 
             BufferedReader entrada;
             System.out.println("Conectar por puerto:"  );
-            socket = new Socket("181.143.155.250" , 8088 );
+            socket = new Socket("190.144.110.99" , 8088 );
 
             socket.setSoTimeout(10000);
 
             System.out.println(":::::::::::::::::::: " + socket.isConnected());
+            System.out.println(":::::::::::::::::::: " + intent.getData());
 
             if(socket.isConnected()){
 

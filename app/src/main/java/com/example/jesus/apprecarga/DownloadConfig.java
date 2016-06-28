@@ -53,7 +53,6 @@ public class DownloadConfig extends AppCompatActivity implements View.OnClickLis
         tvIp       = (TextView) findViewById(R.id.tvIp);
         tvPuerto   = (TextView) findViewById(R.id.tvPuerto);
 
-
         SharedPreferences prefs = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         Terminal = prefs.getString("TERMINAL","");
         Idcomercio = prefs.getString("IDCOMERCIO","");
