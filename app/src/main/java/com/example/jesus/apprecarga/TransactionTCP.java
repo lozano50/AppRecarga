@@ -178,6 +178,7 @@ public class TransactionTCP extends IntentService {
     public void hacerDlc() {
 
         int i = 0;
+        boolean isOk = true;
 
         try {
 
@@ -197,10 +198,25 @@ public class TransactionTCP extends IntentService {
 
                 System.out.println("RECIBIENDO PAQUETE DLC " + (i + 1) + "...");
 
+                long t0 = System.currentTimeMillis() + (long) (90 * 1000);
+                System.out.println("::::::::::::::::::::::::::::::::::::::::::::::" + System.currentTimeMillis());
+                System.out.println("::::::::::::::::::::::::::::::::::::::::::::::" + t0);
+
                 do {
+
+                    if (System.currentTimeMillis() >= t0) {
+
+                        isOk = false;
+                        break;
+                    }
+
+
                     InputStream stream = socket.getInputStream();
                     byte[] data = new byte[3024];
                     int count = stream.read(data);
+
+
+
 
                     System.out.println("data.length :::::::::: " + count);
 
