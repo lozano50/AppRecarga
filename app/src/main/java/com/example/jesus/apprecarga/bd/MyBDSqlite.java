@@ -20,21 +20,21 @@ public class MyBDSqlite extends SQLiteOpenHelper{
 
 
     String sqlTramaResp1 = "CREATE TABLE "+ tabla_Trama_resp_1 +" (id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
-            " idpos INTEGER, idcomercio TEXT, msg TEXT, nombre_cli TEXT, nro_identificacion TEXT, direccion_ent TEXT," +
+            " idpos text, idcomercio TEXT, msg TEXT, nombre_cli TEXT, nro_identificacion TEXT, direccion_ent TEXT," +
             " telefono TEXT, encabezado_cierre_1 TEXT, encabezado_cierre_2 TEXT, encabezado_cierre_3 TEXT, encabezado_cierre_4 TEXT," +
             " encabezado_cierre_5 TEXT, pie_cierre_1 TEXT, pie_cierre_2 TEXT, pie_cierre_3 TEXT, pie_cierre_4 TEXT, pie_cierre_5 TEXT," +
             " gprs_apn TEXT, gprs_usuario TEXT," + " gprs_password TEXT, gprs_timeout TEXT, gprs_Recib_Timeout TEXT, gprs_ppp TEXT," +
-            " Gprs_TCP_Perm TEXT, ip_primaria INTEGER, ip_secundaria INTEGER, puerto_Primario INTEGER, puerto_secundario INTEGER, gprs_ssl TEXT," +
+            " Gprs_TCP_Perm TEXT, ip_primaria TEXT, ip_secundaria TEXT, puerto_Primario TEXT, puerto_secundario TEXT, gprs_ssl TEXT," +
             " dialup_primario TEXT, dialup_secundario TEXT, Dialup_Timeout TEXT," + " Dp_timeout_Cierre TEXT, DialupTimeoutConsulta TEXT," +
             " SimboloMoneda TEXT, NumeroDecimales TEXT, SimboloDecimal TEXT, Password TEXT, FechaDLC TEXT, VersionDLC TEXT)";
 
-    String sqlTramaResp2 = "CREATE TABLE "+ tabla_Trama_resp_2 +" (id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT," +
+    String sqlTramaResp2 = "CREATE TABLE "+ tabla_Trama_resp_2 +" (id INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos TEXT, idcomercio TEXT," +
             " msg TEXT, encabezado_activo1 TEXT, encabezado_activo2 TEXT, encabezado_activo3 TEXT," +
             " encabezado_activo4 TEXT, encabezado_activo5 TEXT, pagina_activo1 TEXT, pagina_activo2 TEXT," +
             " pagina_activo3 TEXT, pagina_activo4 TEXT, pagina_activo5 TEXT, encabezado_saldo1 TEXT, encabezado_saldo2 TEXT," +
             " encabezado_saldo3 TEXT, pagina_saldo1 TEXT, pagina_saldo2 TEXT, pagina_saldo3 TEXT)";
 
-    String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos INTEGER, idcomercio TEXT, cant_producto INTEGER)";
+    String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos TEXT, idcomercio TEXT, cant_producto TEXT)";
 
     String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER, pass INTEGER)";
 

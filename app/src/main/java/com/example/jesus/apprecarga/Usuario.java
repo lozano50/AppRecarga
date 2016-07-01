@@ -54,7 +54,7 @@ public class Usuario extends AppCompatActivity implements View.OnClickListener{
 
             case R.id.btnInsertUser:
 
-                usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 1);
+                usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
                 db = usdbh.getWritableDatabase();
 
                 String nombre = etNombreUsuario.getText().toString();
@@ -78,7 +78,7 @@ public class Usuario extends AppCompatActivity implements View.OnClickListener{
 
             case R.id.btnActUsuario:
 
-                usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 1);
+                usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
                 db = usdbh.getWritableDatabase();
 
                 //Alternativa 1: metodo sqlExec()

@@ -190,7 +190,7 @@ public class TransactionTCP extends IntentService {
 
             BufferedReader entrada;
             System.out.println("Conectar por puerto:"  );
-            socket = new Socket("190.144.110.99" , 8088 );
+            socket = new Socket("provr.hopto.org" , 8088 );
 
             socket.setSoTimeout(10000);
             String prueba = intent.getData().toString();
@@ -321,6 +321,7 @@ public class TransactionTCP extends IntentService {
 
         int i = 0;
         int len = 0;
+
         boolean isOk = true;
         OutputStream salida = null;
         InputStream entrada = null;
@@ -328,6 +329,18 @@ public class TransactionTCP extends IntentService {
         ISOMensaje isoOperDLC[] = new ISOMensaje[10];
 
         try {
+
+            usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
+            db = usdbh.getWritableDatabase();
+
+            String sql = "DELETE FROM tablatramaresp1";
+            db.execSQL(sql);
+            String sql1 = "DELETE FROM tablatramaresp2";
+            db.execSQL(sql1);
+            String sql2 = "DELETE FROM tablatramaresp3";
+            db.execSQL(sql2);
+            db.close();
+
 
             iso = TransMessages.packMsgInit("000001", "90909090", "01", "90901A", "000010101101010", false);
 
@@ -463,8 +476,6 @@ public class TransactionTCP extends IntentService {
                 }
             }
 
-
-
         } catch (Exception ex) {
 
             System.out.println("Error al conectar cliente" + ex.toString());
@@ -489,6 +500,9 @@ public class TransactionTCP extends IntentService {
 
         int ilargoOper     = isoOper.length;
         InfoConfiguracion conf = null;
+        int countOper = 0;
+
+        System.out.println("ilargoOper ::::::::::::::::::::::::::: " + ilargoOper);
 
         conf = new InfoConfiguracion(isoRespDLC[0], isoRespDLC[1], isoRespDLC[2]);
 
@@ -528,139 +542,119 @@ public class TransactionTCP extends IntentService {
 
         /*codigo para insertar en las bases de datos de trama1, trama2, trama3, */
 
-        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 1);
+        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
         db = usdbh.getWritableDatabase();
 
-        /*codigo para insertar en la primera tabla llamada tabla_Trama_resp_1*/
-        /*ContentValues nuevoRegistro = new ContentValues();
-        nuevoRegistro.put("nombre", nombre);
-        nuevoRegistro.put("cod_usuario", codUsuario);
-        nuevoRegistro.put("tipo_usuario", tipoUser);
-        db.insert("usuarios", null, nuevoRegistro);*/
+        ContentValues nuevoRegistro = new ContentValues();
+        nuevoRegistro.put("idpos", new String(isoRespDLC[0].getCampoISOenBytes(41)));
+        nuevoRegistro.put("idcomercio", new String(isoRespDLC[0].getCampoISOenBytes(42)));
+        nuevoRegistro.put("msg", new String(isoRespDLC[0].getCampoISOenBytes(44)));
+        nuevoRegistro.put("nombre_cli", conf.getStrNombreEntidad());
+        nuevoRegistro.put("nro_identificacion", conf.getStrNroIdentificacion());
+        nuevoRegistro.put("direccion_ent", conf.getStrDireccionEntidad());
+        nuevoRegistro.put("telefono", conf.getStrTelefonoEntidad());
+        nuevoRegistro.put("encabezado_cierre_1", conf.getStrEncabezadoCierre1());
+        nuevoRegistro.put("encabezado_cierre_2", conf.getStrEncabezadoCierre2());
+        nuevoRegistro.put("encabezado_cierre_3", conf.getStrEncabezadoCierre3());
+        nuevoRegistro.put("encabezado_cierre_4", conf.getStrEncabezadoCierre4());
+        nuevoRegistro.put("encabezado_cierre_5", conf.getStrEncabezadoCierre5());
+        nuevoRegistro.put("pie_cierre_1", conf.getStrPieDePaginaCierre1());
+        nuevoRegistro.put("pie_cierre_2", conf.getStrPieDePaginaCierre2());
+        nuevoRegistro.put("pie_cierre_3", conf.getStrPieDePaginaCierre3());
+        nuevoRegistro.put("pie_cierre_4", conf.getStrPieDePaginaCierre4());
+        nuevoRegistro.put("pie_cierre_5", conf.getStrPieDePaginaCierre5());
+        nuevoRegistro.put("gprs_apn", conf.getStrGprsAPN());
+        nuevoRegistro.put("gprs_usuario", conf.getStrGprsUsuario());
+        nuevoRegistro.put("gprs_password", conf.getStrGprsPassword());
+        nuevoRegistro.put("gprs_timeout", conf.getStrGprsPPPTimeout());
+        nuevoRegistro.put("gprs_Recib_Timeout", conf.getStrGprsRecibiendoTimeout());
+        nuevoRegistro.put("gprs_ppp", conf.getStrGprsTCPPermanente());
+        nuevoRegistro.put("Gprs_TCP_Perm", conf.getStrGprsTCPPermanente());
+        nuevoRegistro.put("ip_primaria", conf.getStrGprsIPPrimaria());
+        nuevoRegistro.put("ip_secundaria", conf.getStrGprsIPSecundaria());
+        nuevoRegistro.put("puerto_Primario", conf.getStrGprsPuertoPrimario());
+        nuevoRegistro.put("puerto_secundario", conf.getStrGprsPuertoSecundario());
+        nuevoRegistro.put("gprs_ssl", conf.getStrGprsSSL());
+        nuevoRegistro.put("dialup_primario", conf.getStrDialupHostPrimario());
+        nuevoRegistro.put("dialup_secundario", conf.getStrDialupHostSecundario());
+        nuevoRegistro.put("Dialup_Timeout", conf.getStrDialupTimeoutRecarga());
+        nuevoRegistro.put("Dp_timeout_Cierre", conf.getStrDialupTimeoutCierre());
+        nuevoRegistro.put("DialupTimeoutConsulta", conf.getStrDialupTimeoutConsulta());
+        nuevoRegistro.put("SimboloMoneda", conf.getStrSimboloMoneda());
+        nuevoRegistro.put("NumeroDecimales", conf.getStrNumeroDecimales());
+        nuevoRegistro.put("SimboloDecimal", conf.getStrSimboloDecimal());
+        nuevoRegistro.put("Password", conf.getStrPassword());
+        nuevoRegistro.put("FechaDLC", conf.getStrFechaDLC());
+        nuevoRegistro.put("VersionDLC", conf.getStrVersionDLC());
 
-      /*strNombreEntidad
-        strNroIdentificacion
-        strDireccionEntidad
-        strTelefonoEntidad
-        strEncabezadoCierre1
-        strEncabezadoCierre2
-        strEncabezadoCierre3
-        strEncabezadoCierre4
-        strEncabezadoCierre5
-        strPieDePaginaCierre1
-        strPieDePaginaCierre2
-        strPieDePaginaCierre3
-        strPieDePaginaCierre4
-        strPieDePaginaCierre5
-        strGprsAPN
-        strGprsUsuario
-        strGprsPassword
-        strGprsPPPTimeout
-        strGprsRecibiendoTimeout
-        strGprsPPPPermanente
-        strGprsTCPPermanente
-        strGprsIPPrimaria
-        strGprsIPSecundaria
-        strGprsPuertoPrimario
-        strGprsPuertoSecundario
-        strGprsSSL
-        strDialupHostPrimario
-        strDialupHostSecundario
-        strDialupTimeoutRecarga
-        strDialupTimeoutCierre
-        strDialupTimeoutConsulta
-        strSimboloMoneda
-        strNumeroDecimales
-        strSimboloDecimal
-        strPassword
-        strFechaDLC
-        strVersionDLC*/
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(41)));
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(42)));
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(44)));
-        System.out.println("primaryPort " + conf.getStrNombreEntidad());
-        System.out.println("primaryPort " + conf.getStrNroIdentificacion());
-        System.out.println("primaryPort " + conf.getStrDireccionEntidad());
-        System.out.println("primaryPort " + conf.getStrTelefonoEntidad());
-        System.out.println("primaryPort " + conf.getStrEncabezadoCierre1());
-        System.out.println("primaryPort " + conf.getStrEncabezadoCierre2());
-        System.out.println("primaryPort " + conf.getStrEncabezadoCierre3());
-        System.out.println("primaryPort " + conf.getStrEncabezadoCierre4());
-        System.out.println("primaryPort " + conf.getStrEncabezadoCierre5());
-        System.out.println("primaryPort " + conf.getStrPieDePaginaCierre1());
-        System.out.println("primaryPort " + conf.getStrPieDePaginaCierre2());
-        System.out.println("primaryPort " + conf.getStrPieDePaginaCierre3());
-        System.out.println("primaryPort " + conf.getStrPieDePaginaCierre4());
-        System.out.println("primaryPort " + conf.getStrPieDePaginaCierre5());
-        System.out.println("primaryPort " + conf.getStrGprsAPN());
-        System.out.println("primaryPort " + conf.getStrGprsUsuario());
-        System.out.println("primaryPort " + conf.getStrGprsPassword());
-        System.out.println("primaryPort " + conf.getStrGprsPPPTimeout());
-        System.out.println("primaryPort " + conf.getStrGprsRecibiendoTimeout());
-        System.out.println("primaryPort " + conf.getStrGprsPPPPermanente());
-        System.out.println("primaryPort " + conf.getStrGprsTCPPermanente());
-        System.out.println("primaryPort " + conf.getStrGprsIPPrimaria());
-        System.out.println("primaryPort " + conf.getStrGprsIPSecundaria());
-        System.out.println("primaryPort " + conf.getStrGprsPuertoPrimario());
-        System.out.println("primaryPort " + conf.getStrGprsPuertoSecundario());
-        System.out.println("primaryPort " + conf.getStrGprsSSL());
-        System.out.println("primaryPort " + conf.getStrDialupHostPrimario());
-        System.out.println("primaryPort " + conf.getStrDialupHostSecundario());
-        System.out.println("primaryPort " + conf.getStrDialupTimeoutRecarga());
-        System.out.println("primaryPort " + conf.getStrDialupTimeoutCierre());
-        System.out.println("primaryPort " + conf.getStrDialupTimeoutConsulta());
-        System.out.println("primaryPort " + conf.getStrSimboloMoneda());
-        System.out.println("primaryPort " + conf.getStrNumeroDecimales());
-        System.out.println("primaryPort " + conf.getStrSimboloDecimal());
-        System.out.println("primaryPort " + conf.getStrPassword());
-        System.out.println("primaryPort " + conf.getStrFechaDLC());
-        System.out.println("primaryPort " + conf.getStrVersionDLC());
+        db.insert("tablatramaresp1", null, nuevoRegistro);
 
 
-        /************************************************************************/
-        /*strEncabezadoActivacion1
-        strEncabezadoActivacion2
-        strEncabezadoActivacion3
-        strEncabezadoActivacion4
-        strEncabezadoActivacion5
-        strPiePaginaActivacion1
-        strPiePaginaActivacion2
-        strPiePaginaActivacion3
-        strPiePaginaActivacion4
-        strPiePaginaActivacion5
-        strEncabezadoSaldo1
-        strEncabezadoSaldo2
-        strEncabezadoSaldo3
-        strPiePaginaSaldo1
-        strPiePaginaSaldo2
-        strPiePaginaSaldo3*/
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(41)));
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(42)));
-        System.out.println("primaryPort " + new String(isoRespDLC[0].getCampoISOenBytes(44)));
+        ContentValues nuevoRegistro1 = new ContentValues();
+        nuevoRegistro1.put("idpos", new String(isoRespDLC[1].getCampoISOenBytes(41)));
+        nuevoRegistro1.put("idcomercio", new String(isoRespDLC[1].getCampoISOenBytes(42)));
+        nuevoRegistro1.put("msg", new String(isoRespDLC[1].getCampoISOenBytes(44)));
+        nuevoRegistro1.put("encabezado_activo1", conf.getStrEncabezadoActivacion1());
+        nuevoRegistro1.put("encabezado_activo2", conf.getStrEncabezadoActivacion2());
+        nuevoRegistro1.put("encabezado_activo3", conf.getStrEncabezadoActivacion3());
+        nuevoRegistro1.put("encabezado_activo4", conf.getStrEncabezadoActivacion4());
+        nuevoRegistro1.put("encabezado_activo5", conf.getStrEncabezadoActivacion5());
+        nuevoRegistro1.put("pagina_activo1", conf.getStrEncabezadoSaldo1());
+        nuevoRegistro1.put("pagina_activo2", conf.getStrEncabezadoSaldo2());
+        nuevoRegistro1.put("pagina_activo3", conf.getStrEncabezadoSaldo3());
+        nuevoRegistro1.put("pagina_activo4", conf.getStrPiePaginaSaldo1());
+        nuevoRegistro1.put("pagina_activo5", conf.getStrPiePaginaSaldo2());
+        nuevoRegistro1.put("encabezado_saldo1", conf.getStrPiePaginaSaldo3());
+        nuevoRegistro1.put("encabezado_saldo2",conf.getStrPiePaginaSaldo3());
+        nuevoRegistro1.put("encabezado_saldo3",conf.getStrPiePaginaSaldo3());
+        nuevoRegistro1.put("pagina_saldo1",conf.getStrPiePaginaSaldo3());
+        nuevoRegistro1.put("pagina_saldo2",conf.getStrPiePaginaSaldo3());
+        nuevoRegistro1.put("pagina_saldo3",conf.getStrPiePaginaSaldo3());
 
-        System.out.println("primaryPort " + conf.getStrEncabezadoActivacion1());
-        System.out.println("primaryPort " + conf.getStrEncabezadoActivacion2());
-        System.out.println("primaryPort " + conf.getStrEncabezadoActivacion3());
-        System.out.println("primaryPort " + conf.getStrEncabezadoActivacion4());
-        System.out.println("primaryPort " + conf.getStrEncabezadoActivacion5());
-        System.out.println("primaryPort " + conf.getStrPiePaginaActivacion1());
-        System.out.println("primaryPort " + conf.getStrPiePaginaActivacion2());
-        System.out.println("primaryPort " + conf.getStrPiePaginaActivacion3());
-        System.out.println("primaryPort " + conf.getStrPiePaginaActivacion4());
-        System.out.println("primaryPort " + conf.getStrPiePaginaActivacion5());
-        System.out.println("primaryPort " + conf.getStrEncabezadoSaldo1());
-        System.out.println("primaryPort " + conf.getStrEncabezadoSaldo2());
-        System.out.println("primaryPort " + conf.getStrEncabezadoSaldo3());
-        System.out.println("primaryPort " + conf.getStrPiePaginaSaldo1());
-        System.out.println("primaryPort " + conf.getStrPiePaginaSaldo2());
-        System.out.println("primaryPort " + conf.getStrPiePaginaSaldo3());
-        /************************************************************************/
+
+        db.insert("tablatramaresp2", null, nuevoRegistro1);
+
+        System.out.println("String.valueOf(num_servicios) :::::::::: " + String.valueOf(num_servicios));
+
+        ContentValues nuevoRegistro2 = new ContentValues();
+        nuevoRegistro2.put("idpos", new String(isoRespDLC[2].getCampoISOenBytes(41)));
+        nuevoRegistro2.put("idcomercio", new String(isoRespDLC[2].getCampoISOenBytes(42)));
+        nuevoRegistro2.put("cant_producto", String.valueOf(num_servicios));
+
+        db.insert("tablatramaresp3", null, nuevoRegistro2);
+
+
+        for(countOper= 0;countOper < num_servicios; countOper++){
+
+            System.out.println("iNumOper = " + countOper);
+            Operador oper = new Operador(isoOper[countOper]);
+
+            System.out.println("----------------------------------------------------------------");
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga1());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga2());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga3());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga4());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga5());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga1());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga2());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga3());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga4());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga5());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrIdLogo());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrIdOperadora());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrModoRecarga());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPrefijo());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrTipoProtocolo());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiLargoMaxTelefono());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiLargoMinTelefono());
+            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiNumOperadora());
+            System.out.println("---------------------------------------------------------------");
+
+        }
 
 
 
-
-        /************************************************************************/
-
+        db.close();
 
 
         return true;
