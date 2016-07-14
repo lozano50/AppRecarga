@@ -75,8 +75,8 @@ public class Operador {
         System.arraycopy(bCampoISO, 516, bufferLocal, 0, 2);
         strIdLogo = new String(bufferLocal, 0, 2);             System.out.println("strIdLogo = " + strIdLogo);
         System.arraycopy(bCampoISO, 518, bufferLocal, 0, 2);
-        strIdOperadora = new String(bufferLocal, 0, 2);         System.out.println("strIdOperadora = " + strIdOperadora);
-        System.out.println("Clase Operador setear el id operadora " + strIdOperadora);
+        System.out.println("strIdOperadora = " + strIdOperadora);
+        strIdOperadora = new String(bufferLocal, 0, 2);
         System.arraycopy(bCampoISO, 520, bufferLocal, 0, 15);
         strNombreOperadora = new String(bufferLocal, 0, 15);
         System.out.println("Clase Operador setear el nombre operadora " + strNombreOperadora);

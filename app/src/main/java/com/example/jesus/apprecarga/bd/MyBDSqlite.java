@@ -34,14 +34,20 @@ public class MyBDSqlite extends SQLiteOpenHelper{
             " pagina_activo3 TEXT, pagina_activo4 TEXT, pagina_activo5 TEXT, encabezado_saldo1 TEXT, encabezado_saldo2 TEXT," +
             " encabezado_saldo3 TEXT, pagina_saldo1 TEXT, pagina_saldo2 TEXT, pagina_saldo3 TEXT)";
 
-    String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, idpos TEXT, idcomercio TEXT, cant_producto TEXT)";
+    String sqlTramaResp3 = "CREATE TABLE "+ tabla_Trama_resp_3 +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
+            " idpos TEXT, idcomercio TEXT, cant_producto TEXT)";
 
-    String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER, pass INTEGER)";
+    String sqlTableUsuario = "CREATE TABLE "+ tabla_Usuario +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
+            " nombre TEXT, cod_usuario INTEGER, tipo_usuario INTEGER, pass INTEGER)";
 
-    String sqlTableProductoAux = "CREATE TABLE "+ tabla_producto_aux +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, num_producto INTEGER, encabezado_recarga_1 TEXT, encabezado_recarga_2 TEXT, encabezado_recarga_3 TEXT, encabezado_recarga_4 TEXT, encabezado_recarga_5 TEXT, " +
-                                 "pie_recarga_1 TEXT, pie_recarga_2 TEXT, pie_recarga_3 TEXT, pie_recarga_4 TEXT, pie_recarga_5 TEXT, cod_logo INTEGER, cod_prov INTEGER, nombre_operadora TEXT, tipo_protocolo INTEGER, prefijo_operadora INTEGER, largo_minimo INTEGER, largo_maximo INTEGER, modo_recarga TEXT, total_productos INTEGER )";
+    String sqlTableProductoAux = "CREATE TABLE "+ tabla_producto_aux +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
+            " num_producto TEXT, encabezado_recarga_1 TEXT, encabezado_recarga_2 TEXT, encabezado_recarga_3 TEXT, encabezado_recarga_4 TEXT," +
+            " encabezado_recarga_5 TEXT, pie_recarga_1 TEXT, pie_recarga_2 TEXT, pie_recarga_3 TEXT, pie_recarga_4 TEXT, pie_recarga_5 TEXT," +
+            " cod_logo TEXT, cod_prov TEXT, nombre_operadora TEXT, tipo_protocolo TEXT, prefijo_operadora TEXT, largo_minimo TEXT," +
+            " largo_maximo TEXT, modo_recarga TEXT, total_productos TEXT, monto_minimo TEXT, monto_maximo TEXT, multiplicador TEXT  )";
 
-    String sqlTableProducto = "CREATE TABLE "+ tabla_producto +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1, num_producto INTEGER, modo_recarga TEXT, codigo_producto INTEGER, nombre_producto TEXT, valor_producto INTEGER)";
+    String sqlTableProducto = "CREATE TABLE "+ tabla_producto +" (id_num INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 1," +
+            " num_producto INTEGER, modo_recarga TEXT, codigo_producto INTEGER, nombre_producto TEXT, valor_producto INTEGER)";
 
     String sqlTablaRegRecargas = "";
 

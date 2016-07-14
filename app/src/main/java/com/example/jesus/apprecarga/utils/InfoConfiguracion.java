@@ -808,7 +808,7 @@ public class InfoConfiguracion {
         iPos = 6;
         System.arraycopy(bCampoISO3, iPos, bufferLocal, 0, 2);
         iNumOperadoras = Integer.parseInt(new String(bufferLocal, 0, 2));
-        System.out.println("************** -------------------- iNumOperadoras = " + iNumOperadoras);
+       // System.out.println("************** -------------------- iNumOperadoras = " + iNumOperadoras);
         iPos += 2;
         if(strGprsSSL.equalsIgnoreCase("S"))
         {

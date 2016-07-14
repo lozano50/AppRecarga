@@ -190,7 +190,7 @@ public class TransactionTCP extends IntentService {
 
             BufferedReader entrada;
             System.out.println("Conectar por puerto:"  );
-            socket = new Socket("provr.hopto.org" , 8088 );
+            socket = new Socket("190.144.110.99" , 8088 );
 
             socket.setSoTimeout(10000);
             String prueba = intent.getData().toString();
@@ -330,7 +330,7 @@ public class TransactionTCP extends IntentService {
 
         try {
 
-            usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
+            usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 5);
             db = usdbh.getWritableDatabase();
 
             String sql = "DELETE FROM tablatramaresp1";
@@ -501,15 +501,16 @@ public class TransactionTCP extends IntentService {
         int ilargoOper     = isoOper.length;
         InfoConfiguracion conf = null;
         int countOper = 0;
+        int countProd = 0;
 
-        System.out.println("ilargoOper ::::::::::::::::::::::::::: " + ilargoOper);
+      //  System.out.println("ilargoOper ::::::::::::::::::::::::::: " + ilargoOper);
 
         conf = new InfoConfiguracion(isoRespDLC[0], isoRespDLC[1], isoRespDLC[2]);
 
         String strCodRespDLC = new String(isoRespDLC[0].getCampoISOenBytes(39));
 
         if (!strCodRespDLC.equalsIgnoreCase("00")) {
-            System.out.println("Codigo de respuesta distinto de \"00\"");
+          //  System.out.println("Codigo de respuesta distinto de \"00\"");
             return false;
         }
 
@@ -521,28 +522,28 @@ public class TransactionTCP extends IntentService {
         simbol_dec    = conf.getStrSimboloDecimal();
         password      = conf.getStrPassword();
 
-        System.out.println("Password -------------------------------- : " + password);
+       // System.out.println("Password -------------------------------- : " + password);
 
         fecha_server = conf.getStrFechaDLC();
-        System.out.println("conf.getStrGprsRecibiendoTimeout(): " + conf.getStrGprsRecibiendoTimeout());
+       // System.out.println("conf.getStrGprsRecibiendoTimeout(): " + conf.getStrGprsRecibiendoTimeout());
 
         time_out1     = Integer.parseInt(conf.getStrGprsRecibiendoTimeout());
         num_servicios = conf.getiNumOperadoras();
-        System.out.println("num_servicios :::::::::: "  + num_servicios);
+       // System.out.println("num_servicios :::::::::: "  + num_servicios);
         IpDLC         = conf.getStrGprsIPPrimaria().trim();
-        System.out.println("IpDLC " + IpDLC);
+       // System.out.println("IpDLC " + IpDLC);
 
         PortDLC       = Integer.parseInt(conf.getStrGprsPuertoPrimario());
-        System.out.println("PortDLC " + PortDLC);
+       // System.out.println("PortDLC " + PortDLC);
 
         primaryIP     = conf.getStrGprsIPSecundaria().trim();
-        System.out.println("primaryIP " + primaryIP);
+       // System.out.println("primaryIP " + primaryIP);
         primaryPort   = Integer.parseInt(conf.getStrGprsPuertoSecundario());
-        System.out.println("primaryPort" + primaryPort);
+       // System.out.println("primaryPort" + primaryPort);
 
         /*codigo para insertar en las bases de datos de trama1, trama2, trama3, */
 
-        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 4);
+        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 5);
         db = usdbh.getWritableDatabase();
 
         ContentValues nuevoRegistro = new ContentValues();
@@ -614,7 +615,7 @@ public class TransactionTCP extends IntentService {
 
         db.insert("tablatramaresp2", null, nuevoRegistro1);
 
-        System.out.println("String.valueOf(num_servicios) :::::::::: " + String.valueOf(num_servicios));
+        //System.out.println("String.valueOf(num_servicios) :::::::::: " + String.valueOf(num_servicios));
 
         ContentValues nuevoRegistro2 = new ContentValues();
         nuevoRegistro2.put("idpos", new String(isoRespDLC[2].getCampoISOenBytes(41)));
@@ -623,36 +624,56 @@ public class TransactionTCP extends IntentService {
 
         db.insert("tablatramaresp3", null, nuevoRegistro2);
 
-
         for(countOper= 0;countOper < num_servicios; countOper++){
 
-            System.out.println("iNumOper = " + countOper);
+            //System.out.println("iNumOper = " + countOper);
             Operador oper = new Operador(isoOper[countOper]);
 
-            System.out.println("----------------------------------------------------------------");
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga1());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga2());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga3());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga4());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrEncabezadoRecarga5());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga1());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga2());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga3());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga4());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPiePaginaRecarga5());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrIdLogo());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrIdOperadora());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrModoRecarga());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrPrefijo());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getStrTipoProtocolo());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiLargoMaxTelefono());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiLargoMinTelefono());
-            System.out.println("parametro  :::::::::: " + (countOper+1) + " " + oper.getiNumOperadora());
-            System.out.println("---------------------------------------------------------------");
+            ContentValues nuevoRegistro3 = new ContentValues();
+            nuevoRegistro3.put("num_producto", oper.getiNumOperadora());
+            nuevoRegistro3.put("encabezado_recarga_1", oper.getStrEncabezadoRecarga1());
+            nuevoRegistro3.put("encabezado_recarga_2", oper.getStrEncabezadoRecarga2());
+            nuevoRegistro3.put("encabezado_recarga_3", oper.getStrEncabezadoRecarga3());
+            nuevoRegistro3.put("encabezado_recarga_4", oper.getStrEncabezadoRecarga4());
+            nuevoRegistro3.put("encabezado_recarga_5", oper.getStrEncabezadoRecarga5());
+            nuevoRegistro3.put("pie_recarga_1", oper.getStrPiePaginaRecarga1());
+            nuevoRegistro3.put("pie_recarga_2", oper.getStrPiePaginaRecarga2());
+            nuevoRegistro3.put("pie_recarga_3", oper.getStrPiePaginaRecarga3());
+            nuevoRegistro3.put("pie_recarga_4", oper.getStrPiePaginaRecarga4());
+            nuevoRegistro3.put("pie_recarga_5", oper.getStrPiePaginaRecarga5());
+            nuevoRegistro3.put("cod_logo", oper.getStrIdLogo());
+            nuevoRegistro3.put("cod_prov", oper.getStrIdOperadora());
+            nuevoRegistro3.put("nombre_operadora", oper.getStrNombreOperadora());
+            nuevoRegistro3.put("tipo_protocolo", oper.getStrTipoProtocolo());
+            nuevoRegistro3.put("prefijo_operadora", oper.getStrPrefijo());
+            nuevoRegistro3.put("largo_minimo", oper.getiLargoMinTelefono());
+            nuevoRegistro3.put("largo_maximo", oper.getiLargoMaxTelefono());
+            nuevoRegistro3.put("modo_recarga", oper.getStrModoRecarga());
+            nuevoRegistro3.put("total_productos", oper.getiTotalProductos());
+            nuevoRegistro3.put("monto_minimo", oper.getiMontoMinimo());
+            nuevoRegistro3.put("monto_maximo", oper.getiMontoMaximo());
+            nuevoRegistro3.put("multiplicador", oper.getiMultiplicadorRecarga());
+            db.insert("tabla_producto_aux", null, nuevoRegistro3);
+
+            for(countProd = 0; countProd < oper.getiTotalProductos(); countProd++){
+
+                System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getNombreProducto());
+                System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getTipoProducto());
+                System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getIdProducto());
+                System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getMonto());
+
+                ContentValues nuevoRegistro4 = new ContentValues();
+                nuevoRegistro4.put("num_producto", oper.getiNumOperadora());
+                nuevoRegistro4.put("modo_recarga", oper.getStrEncabezadoRecarga1());
+                nuevoRegistro4.put("codigo_producto", oper.getStrEncabezadoRecarga2());
+                nuevoRegistro4.put("nombre_producto", oper.getStrEncabezadoRecarga3());
+                nuevoRegistro4.put("valor_producto", oper.getStrEncabezadoRecarga3());
+                db.insert("tabla_producto_aux", null, nuevoRegistro4);
+
+            }
+
 
         }
-
-
 
         db.close();
 
