@@ -190,7 +190,7 @@ public class TransactionTCP extends IntentService {
 
             BufferedReader entrada;
             System.out.println("Conectar por puerto:"  );
-            socket = new Socket("190.144.110.99" , 8088 );
+            socket = new Socket("provr.hopto.org" , 8088 );
 
             socket.setSoTimeout(10000);
             String prueba = intent.getData().toString();
@@ -330,15 +330,28 @@ public class TransactionTCP extends IntentService {
 
         try {
 
-            usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 5);
+            usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 6);
             db = usdbh.getWritableDatabase();
-
+            String vacuum1 = "DELETE FROM SQLITE_SEQUENCE WHERE name='tablatramaresp1';";
+            String vacuum2 = "DELETE FROM SQLITE_SEQUENCE WHERE name='tablatramaresp2';";
+            String vacuum3 = "DELETE FROM SQLITE_SEQUENCE WHERE name='tablatramaresp3';";
+            String vacuum4 = "DELETE FROM SQLITE_SEQUENCE WHERE name='tabla_producto_aux';";
+            String vacuum5 = "DELETE FROM SQLITE_SEQUENCE WHERE name='tabla_producto';";
             String sql = "DELETE FROM tablatramaresp1";
             db.execSQL(sql);
             String sql1 = "DELETE FROM tablatramaresp2";
             db.execSQL(sql1);
             String sql2 = "DELETE FROM tablatramaresp3";
             db.execSQL(sql2);
+            String sql3 = "DELETE FROM tabla_producto_aux";
+            db.execSQL(sql3);
+            String sql4 = "DELETE FROM tabla_producto";
+            db.execSQL(sql4);
+            db.execSQL(vacuum1);
+            db.execSQL(vacuum2);
+            db.execSQL(vacuum3);
+            db.execSQL(vacuum4);
+            db.execSQL(vacuum5);
             db.close();
 
 
@@ -503,14 +516,14 @@ public class TransactionTCP extends IntentService {
         int countOper = 0;
         int countProd = 0;
 
-      //  System.out.println("ilargoOper ::::::::::::::::::::::::::: " + ilargoOper);
+        System.out.println("ilargoOper ::::::::::::::::::::::::::: " + ilargoOper);
 
         conf = new InfoConfiguracion(isoRespDLC[0], isoRespDLC[1], isoRespDLC[2]);
 
         String strCodRespDLC = new String(isoRespDLC[0].getCampoISOenBytes(39));
 
         if (!strCodRespDLC.equalsIgnoreCase("00")) {
-          //  System.out.println("Codigo de respuesta distinto de \"00\"");
+            System.out.println("Codigo de respuesta distinto de \"00\"");
             return false;
         }
 
@@ -522,28 +535,28 @@ public class TransactionTCP extends IntentService {
         simbol_dec    = conf.getStrSimboloDecimal();
         password      = conf.getStrPassword();
 
-       // System.out.println("Password -------------------------------- : " + password);
+        System.out.println("Password -------------------------------- : " + password);
 
         fecha_server = conf.getStrFechaDLC();
-       // System.out.println("conf.getStrGprsRecibiendoTimeout(): " + conf.getStrGprsRecibiendoTimeout());
+        System.out.println("conf.getStrGprsRecibiendoTimeout(): " + conf.getStrGprsRecibiendoTimeout());
 
         time_out1     = Integer.parseInt(conf.getStrGprsRecibiendoTimeout());
         num_servicios = conf.getiNumOperadoras();
-       // System.out.println("num_servicios :::::::::: "  + num_servicios);
+        System.out.println("num_servicios :::::::::: "  + num_servicios);
         IpDLC         = conf.getStrGprsIPPrimaria().trim();
-       // System.out.println("IpDLC " + IpDLC);
+        System.out.println("IpDLC " + IpDLC);
 
         PortDLC       = Integer.parseInt(conf.getStrGprsPuertoPrimario());
-       // System.out.println("PortDLC " + PortDLC);
+        System.out.println("PortDLC " + PortDLC);
 
         primaryIP     = conf.getStrGprsIPSecundaria().trim();
-       // System.out.println("primaryIP " + primaryIP);
+        System.out.println("primaryIP " + primaryIP);
         primaryPort   = Integer.parseInt(conf.getStrGprsPuertoSecundario());
-       // System.out.println("primaryPort" + primaryPort);
+        System.out.println("primaryPort" + primaryPort);
 
         /*codigo para insertar en las bases de datos de trama1, trama2, trama3, */
 
-        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 5);
+        usdbh = new MyBDSqlite(this, "DbRecarga.db", null, 6);
         db = usdbh.getWritableDatabase();
 
         ContentValues nuevoRegistro = new ContentValues();
@@ -615,7 +628,7 @@ public class TransactionTCP extends IntentService {
 
         db.insert("tablatramaresp2", null, nuevoRegistro1);
 
-        //System.out.println("String.valueOf(num_servicios) :::::::::: " + String.valueOf(num_servicios));
+        System.out.println("String.valueOf(num_servicios) :::::::::: " + String.valueOf(num_servicios));
 
         ContentValues nuevoRegistro2 = new ContentValues();
         nuevoRegistro2.put("idpos", new String(isoRespDLC[2].getCampoISOenBytes(41)));
@@ -623,6 +636,7 @@ public class TransactionTCP extends IntentService {
         nuevoRegistro2.put("cant_producto", String.valueOf(num_servicios));
 
         db.insert("tablatramaresp3", null, nuevoRegistro2);
+
 
         for(countOper= 0;countOper < num_servicios; countOper++){
 
@@ -660,15 +674,15 @@ public class TransactionTCP extends IntentService {
                 System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getNombreProducto());
                 System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getTipoProducto());
                 System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getIdProducto());
-                System.out.println("Operadora  :::::::::: " + (countProd+1) + " " + ((Producto)oper.getvProductos().elementAt(countProd)).getMonto());
+                System.out.println("Operadora  :::::::::: " + (countProd + 1) + " " + ((Producto) oper.getvProductos().elementAt(countProd)).getMonto());
 
                 ContentValues nuevoRegistro4 = new ContentValues();
-                nuevoRegistro4.put("num_producto", oper.getiNumOperadora());
-                nuevoRegistro4.put("modo_recarga", oper.getStrEncabezadoRecarga1());
-                nuevoRegistro4.put("codigo_producto", oper.getStrEncabezadoRecarga2());
-                nuevoRegistro4.put("nombre_producto", oper.getStrEncabezadoRecarga3());
-                nuevoRegistro4.put("valor_producto", oper.getStrEncabezadoRecarga3());
-                db.insert("tabla_producto_aux", null, nuevoRegistro4);
+                nuevoRegistro4.put("num_producto", oper.getStrIdOperadora());
+                nuevoRegistro4.put("modo_recarga", ((Producto)oper.getvProductos().elementAt(countProd)).getTipoProducto());
+                nuevoRegistro4.put("codigo_producto", ((Producto)oper.getvProductos().elementAt(countProd)).getIdProducto());
+                nuevoRegistro4.put("nombre_producto", ((Producto)oper.getvProductos().elementAt(countProd)).getNombreProducto());
+                nuevoRegistro4.put("valor_producto", ((Producto) oper.getvProductos().elementAt(countProd)).getMonto());
+                db.insert("tabla_producto", null, nuevoRegistro4);
 
             }
 
@@ -676,6 +690,7 @@ public class TransactionTCP extends IntentService {
         }
 
         db.close();
+
 
 
         return true;
