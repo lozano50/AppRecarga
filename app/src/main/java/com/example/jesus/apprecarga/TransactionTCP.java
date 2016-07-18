@@ -644,7 +644,7 @@ public class TransactionTCP extends IntentService {
             Operador oper = new Operador(isoOper[countOper]);
 
             ContentValues nuevoRegistro3 = new ContentValues();
-            nuevoRegistro3.put("num_producto", oper.getiNumOperadora());
+            nuevoRegistro3.put("num_producto", oper.getStrIdOperadora());
             nuevoRegistro3.put("encabezado_recarga_1", oper.getStrEncabezadoRecarga1());
             nuevoRegistro3.put("encabezado_recarga_2", oper.getStrEncabezadoRecarga2());
             nuevoRegistro3.put("encabezado_recarga_3", oper.getStrEncabezadoRecarga3());

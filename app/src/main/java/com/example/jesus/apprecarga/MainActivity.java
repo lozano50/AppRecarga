@@ -3,6 +3,8 @@ package com.example.jesus.apprecarga;
 import android.app.AlertDialog;
 import android.app.IntentService;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.jesus.apprecarga.bd.MyBDSqlite;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button btnRecarga;
     private Button btnInforme;
     private Button btnAdministrador;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +41,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.btnRecarga:
-                Toast t = Toast.makeText(this,"PRIMERO REALIZE DLC.", Toast.LENGTH_LONG);
-                t.show();
+
+                Intent intCargaProd = new Intent(MainActivity.this,CargarProductos.class);
+                startActivity(intCargaProd);
+
+              //  Toast t = Toast.makeText(this,"PRIMERO REALIZE DLC.", Toast.LENGTH_LONG);
+                //t.show();
                 break;
             case R.id.btnInforme:
 
                 Intent intInfo = new Intent(MainActivity.this,ActInforme.class);
                 startActivity(intInfo);
-                this.finish();
+                //this.finish();
                 //Toast t2 = Toast.makeText(this,"NO HAY TRANSACCIONES REALIZADAS", Toast.LENGTH_LONG);
                 //t2.show();
                 break;
@@ -83,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setBtnInforme(Button btnInforme) {
         this.btnInforme = btnInforme;
     }
+
+
 
 
 }
