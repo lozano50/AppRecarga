@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent intAdmin = new Intent(MainActivity.this,Configuracion.class);
                 startActivity(intAdmin);
-                this.finish();
+                //this.finish();
                 break;
 
         }
