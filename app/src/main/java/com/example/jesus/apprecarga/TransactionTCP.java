@@ -190,11 +190,11 @@ public class TransactionTCP extends IntentService {
 
             BufferedReader entrada;
             System.out.println("Conectar por puerto:"  );
-            socket = new Socket("provr.hopto.org" , 8088 );
+            socket = new Socket("181.49.243.42" , 8088 );
 
             socket.setSoTimeout(10000);
             String prueba = intent.getData().toString();
-            System.out.println(":::::::::::::::::::: " + socket.isConnected());
+            System.out.println("socket.isConnected() :::::::::::::::::::: " + socket.isConnected());
             String campos[] = prueba.split("\\|");
             transaccionActual = Integer.parseInt(campos[0]);
 
@@ -203,10 +203,14 @@ public class TransactionTCP extends IntentService {
 
               switch(transaccionActual){
                   case 1:
+
                       hacerDlc();
+
                       break;
                   case 2:
-                      //otrofuncion1();
+
+                      RealizarRecarga();
+
                       break;
                   case 3:
                       //otrafuncion2();
@@ -264,6 +268,7 @@ public class TransactionTCP extends IntentService {
     public void consultaSaldo(){
 
         try{
+
 
             if(socket.isConnected()){
 
@@ -695,6 +700,61 @@ public class TransactionTCP extends IntentService {
 
         return true;
     }
+
+
+
+    public void RealizarRecarga(){
+
+        try {
+
+
+            iso = TransMessages.packMsgSale("000002", "90909090", "000000000000101010", "R", "01", "08", "", "3100000000", "01", "1000", "90901A", "000010101101010", 0);
+
+            if(socket.isConnected()){
+
+                outputBuffer = iso.getMensajeISOEnBytes();
+                OutputStream mensaje = new DataOutputStream(socket.getOutputStream());
+                mensaje.write(outputBuffer, 0, outputBuffer.length);
+                mensaje.flush();
+
+                InputStream stream = socket.getInputStream();
+                byte[] data = new byte[3024];
+                int count = stream.read(data);
+
+                AppUtil.dumpMemory(data, count);
+
+            }
+
+            socket.close();
+
+        } catch (Exception ex) {
+
+            System.out.println("Error al conectar cliente" + ex.toString());
+
+        }finally{
+
+            if(socket!=null){
+
+                try {
+
+                    socket.close();
+
+                } catch (Exception ex) {
+                    System.out.println("Error al cerrar el socket");
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+
 
 
 

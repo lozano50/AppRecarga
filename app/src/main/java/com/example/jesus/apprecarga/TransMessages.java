@@ -130,7 +130,7 @@ public class TransMessages {
     }
 
 
-    public static ISOMensaje packMsgSale(byte outputBuffer[], String stan, String terminal_id, String merchant_id, String modo_Recarga, String operador_pos, String cod_prov, String cod_area,
+    public static ISOMensaje packMsgSale(/*byte outputBuffer[],*/ String stan, String terminal_id, String merchant_id, String modo_Recarga, String operador_pos, String cod_prov, String cod_area,
                                          String celular, String cod_servicio, String valor, String configVersion, String idEntidad, int idProducto)
     {
         ISOMensaje iso = new ISOMensaje();

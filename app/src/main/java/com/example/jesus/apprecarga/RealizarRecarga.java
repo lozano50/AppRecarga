@@ -1,5 +1,7 @@
 package com.example.jesus.apprecarga;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -40,6 +42,14 @@ public class RealizarRecarga extends AppCompatActivity implements View.OnClickLi
         System.out.println(" codigo producto   = " + prod);
         System.out.println(" numero de celular = " + etIngNum.getText().toString());
         System.out.println(" monto de recarga  = " + etIngValor.getText().toString());
+
+
+        Intent transactionTcp = new Intent(RealizarRecarga.this, TransactionTCP.class);
+        transactionTcp.setData(Uri.parse("2|90909090|101010"+"|"+etIngNum.getText().toString()+"|"+etIngValor.getText().toString()));
+        startService(transactionTcp);
+
+
+
 
     }
 
